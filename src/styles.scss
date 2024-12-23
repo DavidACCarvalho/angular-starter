@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material";
+@use "./app/theme-colors" as theme; // location of generated file
+
+html {
+  // Must specify color-scheme for theme mixin to automatically work
+  color-scheme: light dark;
+
+  // Create one theme that works automatically for light and dark theme
+  @include material.theme(
+    (
+      color: (
+        primary: theme.$primary-palette,
+        tertiary: theme.$tertiary-palette
+      ),
+      typography: Roboto,
+      density: 0
+    )
+  );
+
+  // Use high contrast values when users prefer contrast
+  @media (prefers-contrast: more) {
+    @include theme.high-contrast-overrides(color-scheme);
+  }
+} /* You can add global styles to this file, and also import other style files */
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
